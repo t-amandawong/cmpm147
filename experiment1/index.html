@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 1 - Getting Started</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -24,19 +24,41 @@
     <script type="text/javascript" src="../js/site.js" DEFER></script>
 	<!-- Use me for a JavaScript OOP Project -->
 	<script type="text/javascript" src="./js/project.js" DEFER></script>
-	<!-- Use me for a p5.js project -->
-	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+
 </head>
 <body>
 	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 1 - Getting Started</h1>
 
 			<div class="minor-section">
-				<div id="canvas-container">
-					<!-- canvas will be added here -->
+				<div id="canvas-container" style="background: #EBEAE9">
+					<style> 
+						body, p {
+						  font-family: sans-serif;
+						  color: #3D3D3D
+						}
+					  </style>
+					<div id="inputContainer">
+						<p>
+						  Name:
+						<input type="text" id="nameInput" placeholder="Who's apologizing?">
+						<button id="submitButton">
+						  New apology!
+						</button>
+						</p>
+					  </div>
+					  <div
+						style="border: thin solid #E6E6E6; margin: 1em; background: #ffffff; color: #3D3D3D"
+						id="box"
+					  >
+						<h5 style="text-align: center; color: #999999; font-weight: normal" id="date-header">
+						  date
+						</h5>
+						<div id="bodyText" style="padding-left: 2em; padding-right: 2em; padding-bottom: 2em" >  </div>
+					  </div>
 				</div>
                 <div class="fullscreen-box">
                     <button id="fullscreen">Fullscreen</button>
@@ -45,17 +67,32 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>We've all seen the infamous notes app apology from one celebrity or another. 
+					Well, with the apology generator, now you can generate your own! 
+					I wanted to create a text generator where it was feasible for the outputs to sound similar. 
+					I thought of notes app apologies because of the running internet joke that they're all the same.
+					</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>Using the bad-quests template, I made my own text template that that randomly calls from the filler categories. 
+					I also changed out all of the filler categories, and made them longer than just a single word for more variety.
+					I also implemented a name inputting feature, using an input box and the "New apology!" button to generate an apology 
+					with the inputted name. The date and time shown at the top, which I added to replicate the notes app, 
+					is courtesy to a function made by ChatGPT that grabs the current dateTime from the user and formats it into readable text.
+					Finally, I also did a bit of CSS styling so that it looks more similar to the what the Apple Notes app looks like, 
+					the popular choice for notes app apologies.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>It was really fun making this generator! While the template and fillers were easy enough to manipulate, 
+					the hard part came in with adding the name input, since I was having a bit of trouble initially getting the text to update with input.
+					I also had a bit of trouble with CSS styling, simply because I'm not too familiar with it, but I was able to fix both problems
+					by consulting ChatGPT. Overall, I'm really pleased by both the aesthetic and content of my final product.
+				</p>
 			</div>
 
 		</section>
