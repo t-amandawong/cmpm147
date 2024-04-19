@@ -1,79 +1,169 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+// sketch.js - living impression
+// Author: Thanyared Wong
+// Date: 4/17/2024
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+let sandOffset = 0;
+let waveOffset = 0;
+let mountain1Offset, mountain2Offset, sandHeight;
+let sailboats = [];
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
-
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
+class Sailboat {
+  constructor(x, y, w) {
+    this.x = x
+    this.y = y
+    this.w = w
+    this.h = w * 2
+    this.midpointX = x + w/2
+    this.midpointY = y + this.h/2
+    this.sway = random(TWO_PI)
+    this.swayOffset = random(TWO_PI)
+    
+    let t = random(0, 1)
+    this.interColor = lerpColor(color('#795c34'), color('#532915'), t)
+  }
+  
+  show() {
+    push();
+    
+    translate(this.midpointX, this.midpointY)
+    rotate(this.sway)
+    strokeWeight(2)
+    
+    // draw sail
+    noStroke()
+    fill('ivory')
+    triangle(0, 0, 0, -this.h/2, this.w/2, 0);
+    
+    // draw pole
+    stroke(0)
+    line(0, this.h*0.2, 0, -this.h/2)
+    
+    //draw boat
+    noStroke()
+    fill(this.interColor)
+    arc(0,-this.h*0.1, this.w * 1.75, this.w * 1.75, PI/6, 5 * PI/6, OPEN)
+    
+    pop();
+  }
+  
+  update() {
+    // Sway back and forth using a sine wave for natural motion
+    this.sway = sin(frameCount * 0.05 + this.swayOffset) * QUARTER_PI * 0.125;
+  }
 }
 
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
-}
-
-// setup() function is called once when the program starts
 function setup() {
   // place our canvas, making it fit our container
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
   // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-
   $(window).resize(function() {
-    resizeScreen();
+      console.log("Resizing...");
+      resizeCanvas(canvasContainer.width(), canvasContainer.height());
   });
-  resizeScreen();
+  
+  // initialize sailboats
+  let numSailboats = random(1, 6)
+  for(let i = 0; i < numSailboats; i++) {
+    let randX = random(0, width)
+    let randY = random(height * 0.4, height * 0.6)
+    let sailboat = new Sailboat(randX, randY, 25 * (randY/height * 2));
+    sailboats.push(sailboat);
+  }
+  
+  // initialize mountain offsets & sandHeight
+  mountain1Offset = random(0, 10)
+  mountain2Offset = random(0, 10)
+  sandHeight = height * 0.6
 }
 
-// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+  clear();
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
+  // draw sky
+  drawVerticalGradient(0, 0, width, height/2, color(89, 138, 211), color(175, 212, 245))
+  
+  // draw mountains
+  noStroke()
+  fill(color(119, 147, 186))
+  drawMountains(height * 0.1, height * 0.5, mountain1Offset)
+  fill(color(125, 140, 171))
+  drawMountains(height * 0.1, height * 0.5, mountain2Offset);
+  
+  // draw waves
+  fill(color(58, 76, 101))
+  drawWaves(height * 0.4, height * 0.5, waveOffset)
+  fill(color(70, 88, 109))
+  drawWaves(height * 0.5, height * 0.6, waveOffset)
+  fill(color(91, 112, 135))
+  drawWaves(height * 0.6, height * 0.7, waveOffset)
+  
+  // draw sand
+  fill(color(217, 193, 168))
+  strokeWeight(4)
+  stroke(221,223,232)
+  drawSand(height * 0.6, height, sandOffset)
+  
+  // draw sailboats
+  sailboats.forEach((sailboat) => {
+    sailboat.update()
+    sailboat.show()
+  })
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+  waveOffset += 0.025;
+  sandOffset += 0.01;
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+// function made with help from ChatGPT
+function drawMountains(start, end, offset) {
+  beginShape();
+  let xoff = offset; // Option to reset noise detail
+  for (let x = 0; x <= width; x++) {
+    let y = map(noise(xoff), 0, 1, start, end); // Map the noise value to the height of the canvas
+    vertex(x, y);
+    xoff += 0.005; // Controls the level of detail in the noise
+  }
+  vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+}
+
+// function made with help from ChatGPT
+function drawWaves(start, end, offset) {
+  beginShape();
+  let amplitude = 10; // Control the amount of vertical movement
+  for (let x = 0; x <= width; x++) {
+    let y = map(noise(x * 0.005), 0, 1, start, end);
+    y += sin(offset + x * 0.02) * amplitude; // Apply vertical oscillation
+    vertex(x, y);
+  }
+  vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+}
+
+function drawSand(start, end, phase) {
+  beginShape();
+  let amplitude = 15; // Smaller amplitude for sand to simulate gentle undulation
+  for (let x = 0; x <= width; x++) {
+    let y = map(noise(x * 0.005), 0, 1, start, end);
+    y += sin(phase + x * 0.02) * amplitude; // Apply vertical oscillation
+    vertex(x, y);
+  }
+  vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+}
+
+// function made with help from ChatGPT
+function drawVerticalGradient(x, y, w, h, topColor, bottomColor) {
+  // Draw the gradient by changing the color incrementally
+  noFill();
+  for (let i = y; i <= y + h; i++) {
+    let inter = map(i, y, y + h, 0, 1);
+    let c = lerpColor(topColor, bottomColor, inter); // Interpolate between the two colors
+    stroke(c);
+    line(x, i, x + w, i); // Draw a horizontal line with the interpolated color
+  }
 }
