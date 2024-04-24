@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 3 - Alternate Worlds</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -21,41 +21,52 @@
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
 
 	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
-    <script type="text/javascript" src="../js/site.js" DEFER></script>
-	<!-- Use me for a JavaScript OOP Project -->
-	<script type="text/javascript" src="./js/project.js" DEFER></script>
-	<!-- Use me for a p5.js project -->
-	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+    <script type="text/javascript" src="./js/p2_base_dungeon.js" DEFER></script>
+	<script type="text/javascript" src="./js/p2_solution_dungeon.js" DEFER></script>
+	<script type="text/javascript" src="./js/p2_base_overworld.js" DEFER></script>
+	<script type="text/javascript" src="./js/p2_solution_overworld.js" DEFER></script>
 </head>
 <body>
 	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
-
+			<h1>Experiment 3 - Alternate Worlds</h1>
 			<div class="minor-section">
+				<button id="reseedButton">
+					reseed
+					</button>
+					<span id="seedReport"></span>
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
-                <div class="fullscreen-box">
-                    <button id="fullscreen">Fullscreen</button>
-                </div>
+				<textarea cols="20" rows="20" id="asciiBox" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
+			</div>
+			<div class="minor-section">
+				<button id="reseedButton2">
+					reseed
+				</button>
+				<span id="seedReport2"></span>
+				<div id="canvas-container-2">
+					<!-- canvas will be added here -->
+				</div>
+				<textarea cols="20" rows="20" id="asciiBox2" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
 			</div>
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>In this experiment, I made an overworld and dungeon generator using tiling and autotiling. The goal was to make some simple, realistic worlds that had a bit of movement for the "live" feeling. </p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>To make the dungeon, I started by I choosing a wall tile set, and a floor tile set. I made a generateRooms function, which generates a random number of dungeon rooms (this function generates the lakes in the overworld generator). I implemented autotiling for the corners and walls of the dungeon rooms by following the tutorial. Finally, to make both generators interesting, I added movement for the tiles based on the current frameCount.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>I really enjoyed working on this project. While the auto tiling was a bit of a challenge, it was a welcome one, and it was really exciting when I finally got it working how I wanted to. A brief low I had was trying to get the canvases to both display, but after a bit of trial and error, I was able to get it done easily. I feel good about my final product, especially because this was something so new to me.
+				</p>
 			</div>
 
 		</section>
@@ -63,6 +74,8 @@
 			<!-- Put link back to homepage here. -->
             <ul>
                 <li><a href="../index.html">Home</a></li>
+				<li><a href="https://overworld-generator-autotile.glitch.me">Overworld Generator Glitch Page</a></li>
+				<li><a href="https://dungeon-generator-autotile.glitch.me">Dungeon Generator Glitch Page</a></li>
             </ul>
 		</nav>
 	</main>
