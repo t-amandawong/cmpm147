@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 5 - Evolutionary Impressions</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -22,9 +22,7 @@
 
 	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
     <script type="text/javascript" src="../js/site.js" DEFER></script>
-	<!-- Use me for a JavaScript OOP Project -->
-	<script type="text/javascript" src="./js/project.js" DEFER></script>
-	<!-- Use me for a p5.js project -->
+    <script src="./js/my_design.js" defer></script>
 	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
 </head>
 <body>
@@ -32,9 +30,29 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 5 - Evolutionary Impressions</h1>
 
 			<div class="minor-section">
+                <select id="dropper"></select>
+                <button id="restart">
+                  restart
+                </button>
+                <p>
+                  Mutation rate (<span id="rate"></span>%):<br /><input
+                    id="slider"
+                    type="range"
+                    min="1"
+                    max="100"
+                    value="100"
+                  />
+                </p>
+                <p id="active"></p>
+                <p>Active score: <span id="activeScore"></span></p>
+                <p>Exploration rate: <span id="fpsCounter"></span> fps</p>
+                <p id="best"></p>
+                <p>Best score: <span id="bestScore"></span></p>
+                <p id="memory" data-max-items="16"></p>
+
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
@@ -45,17 +63,18 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>A image generator that will try to copy the base image using mutation. Change the mutation rate as needed.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>Randomly generates boxes in shades of black and white, and mutates all parameters - size, location, color, shape - in order to get closer to the base image.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>This project really confused me at first, especially since I don’t have much experience with image processing. However, as I went along with it, I understood what I was doing better, and was able to get something decent-looking (for black and white).
+                </p>
 			</div>
 
 		</section>
